@@ -41,3 +41,10 @@ Inputs may be plain `(start, end)` tuples or `Interval(start, end)` instances; b
 - `subtract(a, b, universe)` — `a` minus `b`, bounded by `universe`.
 
 Run tests with `PYTHONPATH=src python -m unittest discover -s tests`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
